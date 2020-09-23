@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\LoginService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+    protected $loginService;
+
+    public function __construct(LoginService $loginService)
+    {
+        $this->loginService = $loginService;
+    }
+
     public function showFormLogin()
     {
         return view('login');
@@ -15,18 +23,10 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $email = $request->email;
-        $password = $request->password;
-
-        $data = [
-            'username' => $email,
-            'password' => $password
-        ];
-        if (!Auth::attempt($data)) {
-            Session::flash('login-error', 'Tai khoan or mat khau khong dung');
-            return back();
+        if (!$this->loginService->login($request)) {
+            return redirect()->back();
         }
 
-            dd($request->all());
+        return redirect()->route('admin.dashboard');
     }
 }

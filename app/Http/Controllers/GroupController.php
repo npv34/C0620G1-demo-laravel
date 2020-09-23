@@ -2,31 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\GroupService;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
     protected $users;
-    function __construct(){
-        $this->users = [
-            1 => [
-                'id' => 1,
-                'name' => 'C0620G1'
-            ],
-            2 => [
-                'id' => 2,
-                'name' => 'C0820G2'
-            ],
-            3 => [
-                'id' => 3,
-                'name' => 'C0620G3'
-            ]
-        ];
+    function __construct(GroupService $groupService){
+
     }
     public function index()
     {
         $users = $this->users;
-        print_r($this->users);
         return view('admin.groups.list', compact('users'));
     }
 
@@ -51,7 +38,8 @@ class GroupController extends Controller
 
     function delete($id) {
         if (array_key_exists($id, $this->users)) {
-            array_splice($this->users, $id, 1);
+            unset($this->users[$id]);
+            print_r($this->users);
             return redirect()->route('groups.index');
         } else {
             abort(404);
