@@ -13,8 +13,8 @@ class GroupController extends Controller
     }
     public function index()
     {
-        $users = $this->users;
-        return view('admin.groups.list', compact('users'));
+        //$users = $this->users;
+        return view('admin.groups.list');
     }
 
     function detail($id)
@@ -44,5 +44,9 @@ class GroupController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    function showFormCreate(){
+        return view('admin.groups.add');
     }
 }

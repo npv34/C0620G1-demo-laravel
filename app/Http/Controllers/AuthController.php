@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     protected $loginService;
 
@@ -28,5 +28,11 @@ class LoginController extends Controller
         }
 
         return redirect()->route('admin.dashboard');
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('login');
+
     }
 }
