@@ -3,50 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\GroupService;
+use App\Models\Group;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    protected $users;
+    protected $groupService;
     function __construct(GroupService $groupService){
-
+        $this->groupService = $groupService;
     }
     public function index()
     {
-        //$users = $this->users;
-        return view('admin.groups.list');
-    }
-
-    function detail($id)
-    {
-        if (array_key_exists($id, $this->users)) {
-            $user = $this->users[$id];
-            return view('admin.groups.detail', compact('user'));
-
-        } else {
-            abort(404);
-        }
+        $groups = Group::all();
+        return view('admin.groups.list', compact('groups'));
     }
 
     function create(){
-
+        return view('admin.groups.add');
     }
 
-    function store(){
+    function store(Request $request){
+        $this->groupService->create($request);
         return redirect()->route('groups.index');
     }
 
     function delete($id) {
-        if (array_key_exists($id, $this->users)) {
-            unset($this->users[$id]);
-            print_r($this->users);
-            return redirect()->route('groups.index');
-        } else {
-            abort(404);
-        }
+        $group = Group::findOrFail($id);
+        $group->delete();
+        return redirect()->route('groups.index');
     }
 
-    function showFormCreate(){
-        return view('admin.groups.add');
-    }
 }

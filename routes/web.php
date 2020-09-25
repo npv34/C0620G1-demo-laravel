@@ -26,7 +26,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'showDashBoard'])->name('admin.dashboard');
     Route::prefix('groups')->group(function () {
         Route::get('/',[GroupController::class,'index'])->name('groups.index');
-        Route::get('/create',[GroupController::class,'showFormCreate'])->name('groups.create');
+        Route::get('/create',[GroupController::class,'create'])->name('groups.create');
+        Route::post('/create',[GroupController::class,'store'])->name('groups.store');
         Route::get('/{id}/detail',[GroupController::class,'detail'])->name('groups.detail');
         Route::get('/{id}/delete',[GroupController::class,'delete'])->name('groups.delete');
     });
