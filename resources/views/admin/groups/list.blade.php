@@ -19,6 +19,7 @@
                         <tr>
                             <th>STT</th>
                             <th>Name</th>
+                            <th>Total user</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -26,6 +27,7 @@
                         <tr>
                             <th>STT</th>
                             <th>Name</th>
+                            <th>Total user</th>
                             <th></th>
                         </tr>
                         </tfoot>
@@ -34,6 +36,9 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $group->name }}</td>
+                                <td>
+                                    <a href="{{ route('groups.getUserOfGroup', $group->id) }}">{{ $group->users->count() }}</a>
+                                </td>
                                 <td><a class="btn btn-danger" href="{{ route('groups.delete',['id' =>$group->id]) }}">Delete</a></td>
                             </tr>
                         @empty

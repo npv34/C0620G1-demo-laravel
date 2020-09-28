@@ -33,4 +33,10 @@ class GroupController extends Controller
         return redirect()->route('groups.index');
     }
 
+    function getUserOfGroup($groupId) {
+        $group = Group::findOrFail($groupId);
+        $users = $group->users;
+        dd($users);
+    }
+
 }
