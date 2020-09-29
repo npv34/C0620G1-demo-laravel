@@ -22,10 +22,7 @@ class UserController extends Controller
         $user->username = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-
-        foreach ($request->roles as $roleId) {
-            $user->roles()->attach($roleId);
-        }
+        $user->roles()->sync($request->roles);
         return redirect()->route('users.index');
     }
 
@@ -39,6 +36,21 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->roles()->detach();
         $user->delete();
+        return redirect()->route('users.index');
+    }
+
+    function update($id) {
+        $user = User::findOrFail($id);
+        $groups = Group::all();
+        $roles = Role::all();
+        return view('admin.users.edit', compact('roles','groups', 'user'));
+    }
+
+    function edit(Request $request, $id) {
+        $user = User::findOrFail($id);
+        $user->fill($request->all());
+        $user->save();
+        $user->roles()->sync($request->roles);
         return redirect()->route('users.index');
     }
 }

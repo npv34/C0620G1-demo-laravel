@@ -56,6 +56,7 @@
                                     @endforelse
                                 </td>
                                 <td><a class="btn btn-danger" href="{{ route('users.delete', $user->id) }}">Delete</a>
+                                <a class="btn btn-primary" href="{{ route('users.update', $user->id) }}">Update</a>
                                 </td>
                             </tr>
                         @empty

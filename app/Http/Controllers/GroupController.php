@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateGroupRequest;
 use App\Http\Services\GroupService;
 use App\Models\Group;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class GroupController extends Controller
         return view('admin.groups.add');
     }
 
-    function store(Request $request){
+    function store(CreateGroupRequest $request){
         $this->groupService->create($request);
         return redirect()->route('groups.index');
     }
