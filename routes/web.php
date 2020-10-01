@@ -23,6 +23,9 @@ Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/', [HomeController::class, 'index']);
 
+//api
+
+Route::get('weather', [\App\Http\Controllers\WeatherController::class,'index']);
 Route::prefix('cart')->group(function (){
     Route::get('/',[CartController::class,'index'])->name('cart.index');
 });
