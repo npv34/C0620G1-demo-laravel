@@ -43,6 +43,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/{id}/detail', [GroupController::class, 'detail'])->name('groups.detail');
         Route::get('/{id}/delete', [GroupController::class, 'delete'])->name('groups.delete');
         Route::get('/{id}/users', [GroupController::class, 'getUserOfGroup'])->name('groups.getUserOfGroup');
+        Route::post('/search', [GroupController::class, 'search'])->name('groups.search');
     });
 
     Route::prefix('users')->group(function () {

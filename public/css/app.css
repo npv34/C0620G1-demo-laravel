@@ -10312,4 +10312,8 @@ body {
 .sb-sidenav-light .sb-sidenav-footer {
     background-color: #e9ecef;
 }
+.hover-item {
+    background-color: red;
+    color: white;
+}
 

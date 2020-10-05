@@ -19365,6 +19365,83 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/admin/my.js":
+/*!**********************************!*\
+  !*** ./resources/js/admin/my.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var origin = window.location.origin;
+  $('.item-group').hover(function () {
+    $(this).addClass('hover-item');
+  }, function () {
+    $(this).removeClass('hover-item');
+  });
+  $('#show-name').click(function () {
+    var item = $(this);
+    showHideItem(item, 'group-name');
+  });
+  $('#total-user').click(function () {
+    var item = $(this);
+    showHideItem(item, 'total-user');
+  });
+
+  function showHideItem(item, nameClass) {
+    if (!$(item)[0].checked) {
+      $('.' + nameClass).hide();
+    } else {
+      $('.' + nameClass).show();
+    }
+  }
+
+  $('.delete-group').click(function () {
+    var groupId = $(this).attr('data-id');
+
+    if (confirm('are you sure')) {
+      $.ajax({
+        url: origin + '/admin/groups/' + groupId + '/delete',
+        method: 'GET',
+        type: 'json',
+        success: function success(data) {
+          $('#group-' + groupId).remove();
+        },
+        error: function error() {}
+      });
+    }
+  });
+  $('#search-group').on('keyup', function () {
+    var value = $(this).val();
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      url: origin + '/admin/groups/search',
+      method: 'POST',
+      data: {
+        keyword: value
+      },
+      type: 'json',
+      success: function success(data) {
+        if (data) {
+          var html = '';
+          html += '<li>';
+          html += data[0].name;
+          html += '</li>';
+          $('#list-group-search').html(html);
+        } else {
+          $('#list-group-search').html('');
+        }
+      }
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -19375,6 +19452,8 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./admin/admin */ "./resources/js/admin/admin.js");
+
+__webpack_require__(/*! ./admin/my */ "./resources/js/admin/my.js");
 
 /***/ }),
 

@@ -10,34 +10,46 @@ use Illuminate\Http\Request;
 class GroupController extends Controller
 {
     protected $groupService;
-    function __construct(GroupService $groupService){
+
+    function __construct(GroupService $groupService)
+    {
         $this->groupService = $groupService;
     }
+
     public function index()
     {
         $groups = Group::all();
         return view('admin.groups.list', compact('groups'));
     }
 
-    function create(){
+    function create()
+    {
         return view('admin.groups.add');
     }
 
-    function store(CreateGroupRequest $request){
+    function store(CreateGroupRequest $request)
+    {
         $this->groupService->create($request);
         return redirect()->route('groups.index');
     }
 
-    function delete($id) {
+    function delete($id)
+    {
         $group = Group::findOrFail($id);
         $group->delete();
-        return redirect()->route('groups.index');
     }
 
-    function getUserOfGroup($groupId) {
+    function getUserOfGroup($groupId)
+    {
         $group = Group::findOrFail($groupId);
         $users = $group->users;
         dd($users);
+    }
+
+    function search(Request $request)
+    {
+        $group = Group::where('name', 'LIKE', '%' . $request->keyword . '%')->get();
+        return response()->json($group);
     }
 
 }
