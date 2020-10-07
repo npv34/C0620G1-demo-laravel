@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="mt-4">Create group</h1>
+        <h1 class="mt-4">@lang('message.create_group')</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('groups.index') }}">group</a></li>
@@ -27,7 +27,7 @@
                                  @if($errors->first('name'))
                                  border border-danger
                                  @endif
-                                 " value="{{ old('name') }}" name="name" required>
+                                 " value="{{ old('name') }}" name="name" >
                             @if($errors->first('name'))
                                 <p class="text-danger" >{{ $errors->first('name') }}</p>
                             @endif

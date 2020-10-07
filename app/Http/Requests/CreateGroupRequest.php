@@ -31,7 +31,7 @@ class CreateGroupRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Truong nay khong duoc de trong',
+            'name.required' => __('message.required'),
             'name.min' => 'Truong nay it nhat 2 ky tu',
             'name.unique' => 'Ten group da ton tai',
         ];

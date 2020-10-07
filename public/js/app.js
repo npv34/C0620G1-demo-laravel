@@ -19438,6 +19438,9 @@ $(document).ready(function () {
       }
     });
   });
+  $('.show-detail-group').click(function () {
+    alert(1);
+  });
 });
 
 /***/ }),

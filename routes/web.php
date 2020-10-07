@@ -34,8 +34,11 @@ Route::prefix('products')->group(function (){
 });
 
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth','setLocale'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'showDashBoard'])->name('admin.dashboard');
+
+    Route::post('change-language', [\App\Http\Controllers\LangController::class,'setLocale'])->name('lang.setLocale');
+
     Route::prefix('groups')->group(function () {
         Route::get('/', [GroupController::class, 'index'])->name('groups.index');
         Route::get('/create', [GroupController::class, 'create'])->name('groups.create');
