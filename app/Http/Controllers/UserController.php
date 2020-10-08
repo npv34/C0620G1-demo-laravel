@@ -6,17 +6,24 @@ use App\Models\Group;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     function create() {
+        if (!$this->userCan('create-user')) {
+            abort(403);
+        }
         $groups = Group::all();
         $roles = Role::all();
         return view('admin.users.add', compact('groups','roles'));
     }
 
     function store(Request $request) {
+        if (!$this->userCan('create-user')) {
+            abort(403);
+        }
         $user = new User();
         $user->fill($request->all());
         $user->username = $request->email;

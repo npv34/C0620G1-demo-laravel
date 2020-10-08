@@ -14,7 +14,11 @@
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
                     ></a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="{{ route('groups.index') }}">List groups</a><a class="nav-link" href="{{ route('groups.create') }}">Create</a></nav>
+                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="{{ route('groups.index') }}">List groups</a>
+                        @can('crud-group')
+                        <a class="nav-link" href="{{ route('groups.create') }}">Create</a>
+                        @endcan
+                    </nav>
                 </div>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages"
                 ><div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>

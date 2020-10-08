@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,8 @@ Route::prefix('products')->group(function (){
     Route::get('/{id}/add-to-cart',[CartController::class,'addToCart'])->name('addToCart');
 });
 
+Route::get('/auth/redirect/{provider}', [SocialController::class,'redirect']);
+Route::get('/callback/{provider}', [SocialController::class,'callback']);
 
 Route::middleware(['auth','setLocale'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'showDashBoard'])->name('admin.dashboard');

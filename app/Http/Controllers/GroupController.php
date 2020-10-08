@@ -6,6 +6,7 @@ use App\Http\Requests\CreateGroupRequest;
 use App\Http\Services\GroupService;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class GroupController extends Controller
 {
@@ -24,6 +25,9 @@ class GroupController extends Controller
 
     function create()
     {
+        if (!$this->userCan('crud-group')) {
+            abort(403);
+        }
         return view('admin.groups.add');
     }
 
